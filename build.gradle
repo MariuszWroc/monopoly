@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+        	'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
+        )
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+war {
+    baseName = 'monopoly'
+    version =  '1.0'
+}
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api'
+    
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+	compile 'org.springframework.boot:spring-boot-starter-mail'
+
+	compile 'javax.servlet:jstl:1.2'
+
+	providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    testCompile 'junit:junit'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
