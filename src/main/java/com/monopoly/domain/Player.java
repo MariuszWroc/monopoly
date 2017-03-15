@@ -1,3 +1,5 @@
+package com.monopoly.domain;
+
 import java.util.List;
 
 public class Player {

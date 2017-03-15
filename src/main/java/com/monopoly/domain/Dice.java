@@ -1,3 +1,5 @@
+package com.monopoly.domain;
+
 import java.util.Random;
 
 public enum Dice {

@@ -1,3 +1,5 @@
+package com.monopoly.domain;
+
 
 public enum Money {
 	ONE(1),

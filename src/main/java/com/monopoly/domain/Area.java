@@ -1,3 +1,5 @@
+package com.monopoly.domain;
+
 
 public final class Area {
 	private final Integer id;
