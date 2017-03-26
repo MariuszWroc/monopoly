@@ -1,4 +1,4 @@
-package com.monopoly.domain;
+package com.monopoly.constant;
 
 
 public enum Pawn {

@@ -1,4 +1,4 @@
-package com.monopoly.domain;
+package com.monopoly.constant;
 
 
 public enum Money {
@@ -8,7 +8,7 @@ public enum Money {
 	TWENTY(20),
 	FIFTY(50),
 	ONE_HUNDRET(100),
-	FIVE_HUNDRET(500);
+	FIVE_HUNDRETS(500);
 	
 	private Integer value;
 	

@@ -2,6 +2,8 @@ package com.monopoly.domain;
 
 import java.util.List;
 
+import com.monopoly.constant.Money;
+
 public class CashRegister {
 	private List<Money> oneCreditBanknotes;
 	private List<Money> fiveCreditsBanknotes;

@@ -2,6 +2,8 @@ package com.monopoly.domain;
 
 import java.util.List;
 
+import com.monopoly.constant.Pawn;
+
 public class PlayerCard {
 	private Card card;
 	private List<Pawn> pawns;

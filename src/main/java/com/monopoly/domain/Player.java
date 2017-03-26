@@ -6,14 +6,11 @@ public class Player {
 	private Integer id;
 	private CashRegister cashRegister;
 	private List<PlayerCard> playerCards;
-	private Card actualPosition;
 	
-	public Player(Integer id, CashRegister cashRegister, List<PlayerCard> playerCards, Card actualPosition) {
-		super();
+	public Player(Integer id, CashRegister cashRegister, List<PlayerCard> playerCards) {
 		this.id = id;
 		this.cashRegister = cashRegister;
 		this.playerCards = playerCards;
-		this.actualPosition = actualPosition;
 	}
 
 	public Integer getId() {
@@ -40,13 +37,8 @@ public class Player {
 		this.playerCards = playerCards;
 	}
 
-	public Card getActualPosition() {
-		return actualPosition;
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", cashRegister=" + cashRegister + ", playerCards=" + playerCards + "]";
 	}
-
-	public void setActualPosition(Card actualPosition) {
-		this.actualPosition = actualPosition;
-	}
-	
-	
 }
