@@ -1,12 +1,18 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()		
+        mavenLocal()
+		maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
         classpath(
         	'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
         )
     }
+}
+
+plugins {
+    id 'com.craigburke.client-dependencies' version '1.3.1'
 }
 
 apply plugin: 'java'
@@ -23,7 +29,7 @@ war {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 configurations {
@@ -37,6 +43,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.boot:spring-boot-starter-mail'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile 'org.springframework.security.oauth:spring-security-oauth2'
 
 	compile 'javax.servlet:jstl:1.2'
 
@@ -47,4 +54,45 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'
+}
+
+clientDependencies {
+ 
+    bower {
+        'jquery'('2.2.x', from:'dist') { 
+            include 'jquery.js'
+            include 'jquery.min.js'
+        }
+        'materialize'('0.97.x', from:'dist', into:'materialize'){
+            include "**"
+        }       
+         
+    }
+     
+    npm {
+        'angular'('1.5.x', into: 'angular') {
+            include 'angular.js'
+            include 'angular.min.js'
+        }
+        'angular-resource'('1.5.x', into: 'angular') {
+            include 'angular-resource.js'
+            include 'angular-resource.min.js'
+        }
+        'angular-mocks'('1.5.x', into: 'angular') {
+            include 'angular-mocks.js'
+            include 'angular-mocks.min.js'
+        }       
+        'angular-ui-router'('0.2.18', into: 'angular'){
+            include 'angular-ui-router.js'
+            include 'angular-ui-router.min.js'
+        }
+        'angular-animate'('1.5.x', into: 'angular') {
+            include 'angular-animate.js'
+            include 'angular-animate.min.js'
+        }
+        'angular-cookies'('1.5.x', into: 'angular') {
+            include 'angular-cookies.js'
+            include 'angular-cookies.min.js'
+        }        
+    }  
 }
