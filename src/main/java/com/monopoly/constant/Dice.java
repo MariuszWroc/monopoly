@@ -1,22 +1,21 @@
 package com.monopoly.constant;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public enum Dice {
 	ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6);
 
-	private Integer value;
+	private final int value;
 
-	private Dice(Integer value) {
+	private Dice(int value) {
 		this.value = value;
 	}
 
-	public Integer getValue() {
+	public int getValue() {
 		return value;
 	}
 
-	public Integer rollDice() {
-		Random randomGenerator = new Random();
-		return randomGenerator.nextInt(6);
+	public static int rollDice() {
+		return ThreadLocalRandom.current().nextInt(values().length);
 	}
 }

@@ -1,52 +1,77 @@
 package com.monopoly.domain;
 
-import static com.monopoly.constant.Pawn.HOTEL;
-import static com.monopoly.constant.Pawn.HOUSE;
-import static com.monopoly.constant.Money.ONE;
+import static com.monopoly.constant.Money.FIFTY;
 import static com.monopoly.constant.Money.FIVE;
+import static com.monopoly.constant.Money.FIVE_HUNDRETS;
+import static com.monopoly.constant.Money.ONE;
+import static com.monopoly.constant.Money.ONE_HUNDRET;
 import static com.monopoly.constant.Money.TEN;
 import static com.monopoly.constant.Money.TWENTY;
-import static com.monopoly.constant.Money.FIFTY;
-import static com.monopoly.constant.Money.ONE_HUNDRET;
-import static com.monopoly.constant.Money.FIVE_HUNDRETS;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import com.monopoly.constant.Money;
-import com.monopoly.constant.Pawn;
 
 public class BankResources {
+	private static final Logger logger = LoggerFactory.getLogger(BankResources.class.getName());
 	private Map<Money, Integer> availableBanknots;
 	private List<Card> availableCards;
-	private List<Pawn> availableHouses;
-	private List<Pawn> availableHotels;
+	private AtomicInteger availableHouses;
+	private AtomicInteger availableHotels;
 
 	public BankResources() {
-		this.availableBanknots = populateBanknots();
-		this.availableCards = populateCards();
-		this.availableHouses = populateHouses();
-		this.availableHotels = populateHotels();
+		availableBanknots = populateBanknots();
+		availableCards = populateCards();
+		availableHouses = new AtomicInteger(20);
+		availableHotels = new AtomicInteger(20);
 	}
 
-	private List<Pawn> populateHotels() {
-		int hotelCounts = 20;
-		List<Pawn> hotels = new ArrayList<>();
-		for (int i = 0; i <= hotelCounts; i++) {
-			hotels.add(HOTEL);
+	public Integer removeHouse() {
+		if (availableHouses.get() == 0) {
+			logger.info("House pool is empty");
+		} else {
+			availableHouses.decrementAndGet();
 		}
-		return hotels;
+		
+		return availableHouses.get();
 	}
-
-	private List<Pawn> populateHouses() {
-		int houseCounts = 20;
-		List<Pawn> houses = new ArrayList<>();
-		for (int i = 0; i <= houseCounts; i++) {
-			houses.add(HOUSE);
+	
+	public Integer addHouse() {
+		if (availableHouses.get() == 20) {
+			logger.info("Every house is in pool");
+		} else {
+			availableHouses.incrementAndGet();
 		}
-		return houses;
+		
+		return availableHouses.get();
+	}
+	
+	public Integer removeHotel() {
+		
+		if (availableHotels.get() == 0) {
+			logger.info("Hotel pool is empty");
+		} else {
+			availableHotels.decrementAndGet();
+		}
+		
+		return availableHotels.get();
+	}
+	
+	public Integer addHotel() {
+
+		if (availableHotels.get() == 20) {
+			logger.info("Every hotel is in pool");
+		} else {
+			availableHotels.incrementAndGet();
+		}
+		
+		return availableHotels.get();
 	}
 
 	private List<Card> populateCards() {
@@ -81,14 +106,6 @@ public class BankResources {
 
 	public List<Card> getAvailableCards() {
 		return availableCards;
-	}
-
-	public List<Pawn> getAvailableHouses() {
-		return availableHouses;
-	}
-
-	public List<Pawn> getAvailableHotels() {
-		return availableHotels;
 	}
 
 	@Override
