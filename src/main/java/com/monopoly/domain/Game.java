@@ -11,16 +11,20 @@ import com.monopoly.constant.Dice;
 public final class Game {
 	private final Integer instanceId;
 	private final BankResources bankResources;
-	private final Map<Colour, Player> playerPositions;
+	private final Map<Colour, Player> playersByColour;
 	
 	public Game(List<Player> players) {
 		instanceId = 1; // TODO: Make unique
 		bankResources = new BankResources();
-		playerPositions = players.stream().collect(Collectors.toMap(Player::getPawnColour, Function.identity()));
+		playersByColour = players.stream().collect(Collectors.toMap(Player::getPawnColour, Function.identity()));
+	}
+	
+	public void redistributeMoney(List<Player> players) {
+		
 	}
 
 	public void movePlayerPawn(Colour pawnColour) {
-		Player player = playerPositions.get(pawnColour);
+		Player player = playersByColour.get(pawnColour);
 		int newPosition = (player.getPawnPosition() + Dice.rollDice()) % 40;
 		player.setPawnPosition(newPosition);
 	}
@@ -34,7 +38,7 @@ public final class Game {
 	}
 
 	public Map<Colour, Player> getPlayerPositions() {
-		return playerPositions;
+		return playersByColour;
 	}
 	
 }
