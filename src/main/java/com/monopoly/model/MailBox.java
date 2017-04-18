@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Email;
 
 public class MailBox {
 	@NotBlank
-	@Email
+	@Email(message = "Please enter your email addresss.")
 	private String sender;
 	@NotBlank
 	private String subject;
