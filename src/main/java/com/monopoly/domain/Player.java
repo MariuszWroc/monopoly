@@ -1,33 +1,43 @@
 package com.monopoly.domain;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 import com.monopoly.constant.Colour;
 import com.monopoly.constant.Money;
+import com.monopoly.model.Account;
 
 public class Player {
-	private Integer id;
+	private final Account user;
 	private Map<Money, Integer> cashRegister;
 	private List<PlayerCard> playerCards;
 	private final Colour pawnColour;
 	private int pawnPosition;
 	
-	public Player(Integer id, Map<Money, Integer> cashRegister, List<PlayerCard> playerCards, Colour pawnColour,
-			Integer pawnPosition) {
-		this.id = id;
-		this.cashRegister = cashRegister;
-		this.playerCards = playerCards;
+	public Player(Account user, Colour pawnColour) {
+		this.user = user;
+		this.cashRegister = populateCashRegister();
+		this.playerCards = new ArrayList<>();
 		this.pawnColour = pawnColour;
-		this.pawnPosition = pawnPosition;
+		this.pawnPosition = 1;
 	}
 
-	public Integer getId() {
-		return id;
+	private Map<Money, Integer> populateCashRegister() {
+		cashRegister = new EnumMap<>(Money.class);
+		cashRegister.put(Money.ONE, 1);
+		cashRegister.put(Money.FIVE, 1);
+		cashRegister.put(Money.TEN, 1);
+		cashRegister.put(Money.TWENTY, 1);
+		cashRegister.put(Money.FIFTY, 1);
+		cashRegister.put(Money.ONE_HUNDRET, 1);
+		cashRegister.put(Money.FIVE_HUNDRETS, 1);
+		return cashRegister;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Account getUser() {
+		return user;
 	}
 
 	public Map<Money, Integer> getCashRegister() {
@@ -60,7 +70,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", cashRegister=" + cashRegister + ", playerCards=" + playerCards + ", pawnColour="
+		return "Player [user=" + user + ", cashRegister=" + cashRegister + ", playerCards=" + playerCards + ", pawnColour="
 				+ pawnColour + ", pawnPosition=" + pawnPosition + "]";
 	}
 

@@ -17,7 +17,7 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
 sourceCompatibility = 1.8
@@ -44,6 +44,10 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-mail'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile 'org.springframework.security.oauth:spring-security-oauth2'
+	
+	compile 'javax.el:javax.el-api'
+	compile 'org.glassfish.web:javax.el'
+	compile 'org.hibernate:hibernate-validator'
 
 	compile 'javax.servlet:jstl:1.2'
 
