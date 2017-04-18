@@ -1,17 +1,19 @@
 package com.monopoly.domain;
 
 import java.util.List;
+import java.util.Map;
 
 import com.monopoly.constant.Colour;
+import com.monopoly.constant.Money;
 
 public class Player {
 	private Integer id;
-	private CashRegister cashRegister;
+	private Map<Money, Integer> cashRegister;
 	private List<PlayerCard> playerCards;
 	private final Colour pawnColour;
 	private int pawnPosition;
 	
-	public Player(Integer id, CashRegister cashRegister, List<PlayerCard> playerCards, Colour pawnColour,
+	public Player(Integer id, Map<Money, Integer> cashRegister, List<PlayerCard> playerCards, Colour pawnColour,
 			Integer pawnPosition) {
 		this.id = id;
 		this.cashRegister = cashRegister;
@@ -28,11 +30,11 @@ public class Player {
 		this.id = id;
 	}
 
-	public CashRegister getCashRegister() {
+	public Map<Money, Integer> getCashRegister() {
 		return cashRegister;
 	}
 
-	public void setCashRegister(CashRegister cashRegister) {
+	public void setCashRegister(Map<Money, Integer> cashRegister) {
 		this.cashRegister = cashRegister;
 	}
 
