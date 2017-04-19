@@ -15,7 +15,7 @@ public class GameService {
 	private static Logger logger = LoggerFactory.getLogger(GameService.class.getName());
 	private Integer instanceId;
 	private final Account owner;
-	private List<Player> users;
+	private List<Player> players;
 	private Game game;
 	
 	public GameService(Account owner) {
@@ -26,16 +26,16 @@ public class GameService {
 		return new Player(user, Colour.AZURE);
 	}
 
-	public void banUser(Account user) {
-		if (users == null) {
-			logger.info("Ban user " + user.getLogin());
+	public void banUser(Player player) {
+		if (players == null) {
+			logger.info("Ban user " + player.getUser().getLogin());
 		} else {
-			users.remove(user);
+			players.remove(player);
 		}
 	}
 
-	public void joinToGame(Account user) {
-		if (users == null) {
+	public void joinToGame(Player player) {
+		if (players == null) {
 			logger.info("User joined to " + instanceId);
 		} else {
 		}
@@ -44,20 +44,22 @@ public class GameService {
 	public void createGame() {
 		if (instanceId == null) {
 			instanceId = 1;
-			users = new ArrayList<>();
+			players = new ArrayList<>();
 		} else {
 			logger.info("Game exist " + instanceId);
 		}
 	}
 
 	public void startGame() {
-		if (users.size() >= 2) {
+		if (players.size() >= 2) {
 			List<Player> players = null;
 			game = new Game(players);
+		} else {
+			logger.info("To few players, must be at least two. Now are " + players.size() + " available player(s)");
 		}
 	}
 	
 	public void destroyGame() {
-		
+		game = null;
 	}
 }
