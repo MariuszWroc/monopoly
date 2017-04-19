@@ -3,10 +3,13 @@ package com.monopoly.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.monopoly.constant.Colour;
+import com.monopoly.domain.Player;
+import com.monopoly.model.Account;
 import com.monopoly.service.GameService;
 
 @RestController
@@ -16,19 +19,24 @@ public class GamePlayerController {
 	@Autowired
 	private GameService gameService;
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public void joinToGame() {
+		Player player = null;
+		gameService.joinToGame(player);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public void createPlayer() {
+		Account user = null;
+		Colour playerColour = null;
+		gameService.createPlayer(user, playerColour);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public void quitGame() {
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public void availableGameList() {
 	}
 

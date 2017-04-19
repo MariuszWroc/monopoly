@@ -1,8 +1,8 @@
 package com.monopoly.controller;
 
-import javax.validation.Valid;
-
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monopoly.model.MailBox;
@@ -26,7 +25,7 @@ public class EmailController {
 	@Autowired
 	private MailService mailSender;
 
-	@RequestMapping(value = "/email/send", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" })
+	@PostMapping(value = "/email/send")
 	public ResponseEntity<List<ObjectError>> sendEmail(@RequestBody @Valid MailBox email, BindingResult result) {
 		logger.info("Validating email " + email);
 		if (!result.hasErrors()) {

@@ -22,44 +22,49 @@ public class GameService {
 		this.owner = owner;
 	}
 	
-	public Player createPlayer(Account user) {
-		return new Player(user, Colour.AZURE);
+	public Player createPlayer(Account user, Colour playerColour) {
+		return new Player(user, playerColour);
 	}
 
-	public void banUser(Player player) {
+	public String banUser(Player player) {
 		if (players == null) {
 			logger.info("Ban user " + player.getUser().getLogin());
 		} else {
 			players.remove(player);
 		}
+		return null;
 	}
 
-	public void joinToGame(Player player) {
+	public String joinToGame(Player player) {
 		if (players == null) {
 			logger.info("User joined to " + instanceId);
 		} else {
 		}
+		return null;
 	}
 
-	public void createGame() {
+	public String createGame() {
 		if (instanceId == null) {
 			instanceId = 1;
 			players = new ArrayList<>();
 		} else {
 			logger.info("Game exist " + instanceId);
 		}
+		return null;
 	}
 
-	public void startGame() {
+	public String startGame() {
 		if (players.size() >= 2) {
 			List<Player> players = null;
 			game = new Game(players);
 		} else {
 			logger.info("To few players, must be at least two. Now are " + players.size() + " available player(s)");
 		}
+		return null;
 	}
 	
-	public void destroyGame() {
+	public String destroyGame() {
 		game = null;
+		return null;
 	}
 }
