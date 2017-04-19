@@ -1,4 +1,4 @@
-package pl.mariuszczarny.mysite.controller;
+package com.monopoly.context;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApplicationControllerTest {
+public class MvcConfigTest {
 	
     @Autowired
     private MockMvc mvc;

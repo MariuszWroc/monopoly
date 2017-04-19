@@ -32,7 +32,6 @@ public class GameService {
 		} else {
 			users.remove(user);
 		}
-
 	}
 
 	public void joinToGame(Account user) {
