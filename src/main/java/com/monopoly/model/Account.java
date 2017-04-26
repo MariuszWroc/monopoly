@@ -10,6 +10,21 @@ public class Account {
 	private Boolean activated;
 	private Role role;
 	
+	public Account() {
+	}
+	
+	public Account(Integer id, String firstname, String lastname, String login, String password, String email,
+			Boolean activated, Role role) {
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.activated = activated;
+		this.role = role;
+	}
+
 	public Integer getId() {
 		return id;
 	}

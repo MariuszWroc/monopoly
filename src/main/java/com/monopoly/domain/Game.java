@@ -10,12 +10,12 @@ import com.monopoly.constant.Dice;
 
 public final class Game {
 	private static final int NUMBER_OF_FIELDS = 40;
-	private final Integer instanceId;
+	private final String userOwnerLogin;
 	private final BankResources bankResources;
 	private final Map<Colour, Player> playersByColour;
 	
-	public Game(List<Player> players) {
-		instanceId = 1; // TODO: Make unique
+	public Game(String userOwnerLogin, List<Player> players) {
+		this.userOwnerLogin = userOwnerLogin;
 		bankResources = new BankResources(players.size());
 		playersByColour = players.stream().collect(Collectors.toMap(Player::getPawnColour, Function.identity()));
 	}
@@ -26,16 +26,16 @@ public final class Game {
 		player.setPawnPosition(newPosition);
 	}
 
-	public Integer getInstanceId() {
-		return instanceId;
+	public String getUserOwnerLogin() {
+		return userOwnerLogin;
+	}
+
+	public Map<Colour, Player> getPlayersByColour() {
+		return playersByColour;
 	}
 
 	public BankResources getBankResources() {
 		return bankResources;
-	}
-
-	public Map<Colour, Player> getPlayerPositions() {
-		return playersByColour;
 	}
 	
 }
