@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.monopoly.constant.Colour;
@@ -11,26 +12,12 @@ import com.monopoly.domain.Player;
 import com.monopoly.model.Account;
 
 @Service
+@Scope("session")
 public class PlayerService {
 	private static Logger logger = LoggerFactory.getLogger(PlayerService.class.getName());
 	
 	public Player createPlayer(Account user, Colour playerColour) {
 		return new Player(user, playerColour);
-	}
-
-	// TODO: to fix
-	public String banUser(Player player) {
-		String userbannedLogin = "NO BANNED USERS";
-		
-		List<Object> gamePlayers = null;
-		if (gamePlayers == null) {
-			logger.info("no user to ban");
-		} else {
-			gamePlayers.remove(player);
-			userbannedLogin = player.getUser().getLogin();
-			logger.info("Ban user ", userbannedLogin);
-		}
-		return userbannedLogin;
 	}
 
 	// TODO: to fix

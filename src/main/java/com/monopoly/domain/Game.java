@@ -10,24 +10,27 @@ import com.monopoly.constant.Dice;
 
 public final class Game {
 	private static final int NUMBER_OF_FIELDS = 40;
-	private final String userOwnerLogin;
 	private final BankResources bankResources;
 	private final Map<Colour, Player> playersByColour;
+	private boolean isPlaying= false;
 	
-	public Game(String userOwnerLogin, List<Player> players) {
-		this.userOwnerLogin = userOwnerLogin;
+	public Game(List<Player> players) {
 		bankResources = new BankResources(players.size());
 		playersByColour = players.stream().collect(Collectors.toMap(Player::getPawnColour, Function.identity()));
+	}
+	
+	public void start() {
+		isPlaying = true;
+	}
+	
+	public void finish() {
+		isPlaying = false;
 	}
 	
 	public void movePlayerPawn(Colour pawnColour) {
 		Player player = playersByColour.get(pawnColour);
 		int newPosition = (player.getPawnPosition() + Dice.rollDice()) % NUMBER_OF_FIELDS;
 		player.setPawnPosition(newPosition);
-	}
-
-	public String getUserOwnerLogin() {
-		return userOwnerLogin;
 	}
 
 	public Map<Colour, Player> getPlayersByColour() {

@@ -1,19 +1,20 @@
 package com.monopoly.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.monopoly.constant.Colour;
 import com.monopoly.domain.Game;
 import com.monopoly.domain.Player;
-import com.monopoly.model.Account;
 
 @Service
+@Scope("session")
 public class OwnerService {
 	private static Logger logger = LoggerFactory.getLogger(OwnerService.class.getName());
 	
@@ -21,33 +22,56 @@ public class OwnerService {
 	GameService gameService;
 	
 	public String createGame(String login, List<Player> players) {
-		String userJoinedLogin = "NO STARTED GAME";
+		String createGameMessage = "NO CREATED GAME";
 		Game gameByLogin = gameService.getGameByLogin(login);
 		if (gameByLogin == null) {
-			Game game = new Game(login, players);
+			Game game = new Game(players);
 			gameService.addGame(login, game);
 		} else {
-			logger.info("Game for user {0} exist ", login);
+			logger.info("Game for user {0} already exist ", login);
 		}
-		return userJoinedLogin;
+		
+		return createGameMessage;
 	}
 
-	// TODO: to fix
 	public String startGame(String login) {
-		gameService.getGameByLogin(login);
-		List<Player> gamePlayers = null;
-		if (gamePlayers.size() >= 2) {
-			List<Player> players = null;
-			Game game = new Game(login, players);
+		String startGameMessage = "NO STARTED GAME";
+		Game gameByLogin = gameService.getGameByLogin(login);
+		Map<Colour, Player> playersByColour = gameByLogin.getPlayersByColour();
+		int playerSize = playersByColour.size();
+		if (playerSize >= 2) {
+			gameByLogin.start();
 		} else {
-			logger.info("To few players, must be at least two. Now are " + gamePlayers.size() + " available player(s)");
+			logger.info("To few players, must be at least two. Now are {0} available player(s)", playerSize);
 		}
-		return null;
+		
+		return startGameMessage;
+	}
+	
+	public String destroyGame(String login) {
+		String destroyGameMessage = "NO GAME TO DESTROY";
+		Game gameByLogin = gameService.getGameByLogin(login);
+		if (gameByLogin == null) {
+			logger.info("Game for user {0} no game exist ", login);
+		} else {
+			gameService.removeGame(login);
+		}
+		
+		return destroyGameMessage;
 	}
 	
 	// TODO: to fix
-	public String destroyGame() {
-		Object game = null;
-		return null;
+	public String banUser(Player player) {
+		String userbannedLogin = "NO BANNED USERS";
+		
+		List<Object> gamePlayers = null;
+		if (gamePlayers == null) {
+			logger.info("no user to ban");
+		} else {
+			gamePlayers.remove(player);
+			userbannedLogin = player.getUser().getLogin();
+			logger.info("Ban user ", userbannedLogin);
+		}
+		return userbannedLogin;
 	}
 }
